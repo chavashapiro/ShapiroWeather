@@ -2,6 +2,7 @@ package com.example.chava.shapiroweather;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,7 +13,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.InputType;
+import android.widget.EditText;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        /*locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onProviderDisabled(String provider) {
 
             }
-        });
+        });*/
 
         String zips = preferences.getString("ZIPS", "");
         String[] zipTokens = zips.split(" ");
@@ -98,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = this.getSharedPreferences("DEFAULT", MODE_PRIVATE);
         zipCodes = new ArrayList<String>();
+        //this next line is the one i used when gps wasn't working in school building but
+        //really the gps should just find location and that's how app opens
+        //zipCodes.add("11367");
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter = new WeatherAdapter(zipCodes, this);
